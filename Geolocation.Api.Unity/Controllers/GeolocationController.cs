@@ -41,7 +41,18 @@ namespace Geolocation.Api.Unity.Controllers
         [Route("getdegree/{radian:double}")]
         public IHttpActionResult GetDegree(double radian) => Ok(new { Radian = radian, Degree = _operator.RadiansToDegrees(radian) });
 
-      
+
+
+        /// <summary>
+        /// http://localhost:34006/api/geolocation/DegreesToCardinal/10
+        /// </summary>
+        /// <param name="degree"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("DegreesToCardinal/{degree:double}")]
+        public IHttpActionResult DegreesToCardinal(double degree) => Ok(new { Radian = degree, Cardinal = _operator.DegreesToCardinal(degree) });
+
+        
         /// <summary>
         /// http://localhost:34006/api/geolocation/gradtoradian/10
         /// </summary>

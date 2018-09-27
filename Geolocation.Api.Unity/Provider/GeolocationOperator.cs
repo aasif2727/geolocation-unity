@@ -1,10 +1,7 @@
-﻿using Geolocation.Api.Unity.Models;
-using Geolocation.Api.Unity.Provider.IFactory;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
-using System.Linq;
-using System.Web;
+using Geolocation.Api.Unity.Models;
+using Geolocation.Api.Unity.Provider.IFactory;
 
 namespace Geolocation.Api.Unity.Provider
 {
@@ -55,56 +52,55 @@ namespace Geolocation.Api.Unity.Provider
             return (Math.Cos(x) / Math.Sin(x));
         }
 
-        public double GetAngleOfLineBetweenTwoPoints(PointF p1, PointF p2)
+        public string DegreesToCardinal(double degrees)
         {
-            float xDiff = p2.X - p1.X;
-            float yDiff = p2.Y - p1.Y;
-            return Math.Atan2(yDiff, xDiff) * (180 / Math.PI);
+            string[] cardinals = { "North", "NorthEast", "East", "SouthEast", "South", "SouthWest", "West", "NorthWest", "North" };
+            return cardinals[(int)Math.Round(((double)degrees % 360) / 45)];
         }
 
-        static readonly double tan_Pi_div_8 = Math.Sqrt(2.0) - 1.0;
-        public Direction GetDirection(Point start, Point end)
+        public double GetAngleOfLineBetweenTwoPoints(PointF p1, PointF p2)
+        {
+            var xDiff = p2.X - p1.X;
+            var yDiff = p2.Y - p1.Y;
+            return Math.Atan2(yDiff, xDiff) * (180 / Math.PI);
+        }
+        private static readonly double TanPiDiv8 = Math.Sqrt(2.0) - 1.0;
+        public Directions GetDirection(Point start, Point end)
         {
             double dx = end.X - start.X;
             double dy = end.Y - start.Y;
 
             if (Math.Abs(dx) > Math.Abs(dy))
             {
-                if (Math.Abs(dy / dx) <= tan_Pi_div_8)
+                if (Math.Abs(dy / dx) <= TanPiDiv8)
                 {
-                    return dx > 0 ? Direction.East : Direction.West;
+                    return dx > 0 ? Directions.East : Directions.West;
                 }
 
-                else if (dx > 0)
+                if (dx > 0)
                 {
-                    return dy > 0 ? Direction.Northeast : Direction.Southeast;
+                    return dy > 0 ? Directions.Northeast : Directions.Southeast;
                 }
-                else
-                {
-                    return dy > 0 ? Direction.Northwest : Direction.Southwest;
-                }
+
+                return dy > 0 ? Directions.Northwest : Directions.Southwest;
             }
-            else if (Math.Abs(dy) > 0)
+
+            if (!(Math.Abs(dy) > 0)) return Directions.Undefined;
+            if (Math.Abs(dx / dy) <= TanPiDiv8)
             {
-                if (Math.Abs(dx / dy) <= tan_Pi_div_8)
-                {
-                    return dy > 0 ? Direction.North : Direction.South;
-                }
-                else if (dy > 0)
-                {
-                    return dx > 0 ? Direction.Northeast : Direction.Northwest;
-                }
-                else
-                {
-                    return dx > 0 ? Direction.Southeast : Direction.Southwest;
-                }
+                return dy > 0 ? Directions.North : Directions.South;
             }
-            else
+
+            if (dy > 0)
             {
-                return Direction.Undefined;
+                return dx > 0 ? Directions.Northeast : Directions.Northwest;
             }
+
+            return dx > 0 ? Directions.Southeast : Directions.Southwest;
 
         }
+
+       
 
         public double Cos(double x)
         {

@@ -179,6 +179,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AngleFormat.cs" />
+    <Compile Include="Models\ConvertAngle.cs" />
+    <Compile Include="Models\DegreeMinutesSeconds.cs" />
+    <Compile Include="Models\Radian.cs" />
+    <Compile Include="Models\Degree.cs" />
     <Compile Include="Models\Direction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\GeolocationOperator.cs" />
