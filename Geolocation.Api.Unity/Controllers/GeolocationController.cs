@@ -6,8 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Geolocation.Api.Unity.Models;
 
 namespace Geolocation.Api.Unity.Controllers
 {
@@ -18,7 +20,7 @@ namespace Geolocation.Api.Unity.Controllers
         private readonly IGeolocationOperator _operator;
         public GeolocationController(IGeolocationOperator provider)
         {
-            this._operator = provider;
+            _operator = provider;
         }
 
         /// <summary>
@@ -28,18 +30,7 @@ namespace Geolocation.Api.Unity.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("getradian/{degree:double}")]
-        public HttpResponseMessage GetRadian(double degree)
-        {
-            try
-            {
-                var result = _operator.DegreesToRadians(degree);
-                return Request.CreateResponse(HttpStatusCode.OK, result);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+        public IHttpActionResult GetRadian(double degree) => Ok(new { Degree = degree, Radian = _operator.DegreesToRadians(degree) });
 
         /// <summary>
         /// http://localhost:34006/api/geolocation/getdegree/10
@@ -48,26 +39,15 @@ namespace Geolocation.Api.Unity.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("getdegree/{radian:double}")]
-        public HttpResponseMessage GetDegree(double radian)
-        {
-            try
-            {
-                var result = _operator.RadiansToDegrees(radian);
-                return Request.CreateResponse(HttpStatusCode.OK, result);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+        public IHttpActionResult GetDegree(double radian) => Ok(new { Radian = radian, Degree = _operator.RadiansToDegrees(radian) });
 
+      
         /// <summary>
         /// http://localhost:34006/api/geolocation/gradtoradian/10
         /// </summary>
         /// <param name="grad"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("gradtoradian/{grad:double}")]
+        [HttpGet]        [Route("gradtoradian/{grad:double}")]
         public HttpResponseMessage GradToRadian(double grad)
         {
             try
