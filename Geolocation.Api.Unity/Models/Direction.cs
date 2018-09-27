@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Geolocation.Api.Unity.Models
 {
-    public enum Direction
+    public enum Directions
     {
         North,
         South,
@@ -17,4 +17,6 @@ namespace Geolocation.Api.Unity.Models
         Southwest,
         Undefined
     }
+
+   
 }
