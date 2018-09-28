@@ -10,7 +10,7 @@ namespace AngularUnits.Helper
     {
         public static bool IsRadianType(this string inputVal)
         {
-            if (inputVal.Contains("pi"))
+            if (inputVal.Contains("pi") || inputVal.Contains("pie") || inputVal.Contains("rad"))
                 return true;
             else
                 return false;

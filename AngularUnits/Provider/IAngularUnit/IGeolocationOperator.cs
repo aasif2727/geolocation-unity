@@ -12,7 +12,6 @@ namespace AngularUnits.Provider.IAngularUnit
     {
         double DegreesToRadians(string degrees);
         double RadiansToDegrees(string radians);
-        double DegreeRadianOperator(string inputVal);
 
         double GradsToRadians(double grads);
         double RadiansToGrads(double radians);

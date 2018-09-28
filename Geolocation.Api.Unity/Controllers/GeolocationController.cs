@@ -22,21 +22,6 @@ namespace Geolocation.Api.Unity.Controllers
         }
 
         [HttpGet]
-        [Route("autoevaluator/{inputVal:string}")]
-        public HttpResponseMessage AutoEvaluator(string inputVal)
-        {
-            try
-            {
-                var result = _operator.DegreeRadianOperator(inputVal);
-                return Request.CreateResponse(HttpStatusCode.OK, result);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
-
-        [HttpGet]
         [Route("getradian/{degree:string}")]
         public IHttpActionResult GetRadian(string degree) => Ok(new { Degree = degree, Radian = _operator.DegreesToRadians(degree) });
 

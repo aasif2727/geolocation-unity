@@ -10,25 +10,36 @@ namespace AngularUnits.Provider
     {
         public double DegreesToRadians(string degrees)
         {
-            return (Math.PI / 180.0) * Convert.ToDouble(degrees);
+            if (degrees.Contains("deg"))
+            {
+                return degrees.Replace("deg", "").Trim().ToRadian();
+            }
+            if (degrees.Contains("degree"))
+            {
+                return degrees.Replace("degree", "").Trim().ToRadian();
+            }
+            else
+            {
+                return degrees.ToRadian();
+            }
         }
 
         public double RadiansToDegrees(string radians)
         {
-            return (180.0 / Math.PI) * Convert.ToDouble(radians);
-        }
-
-        public double DegreeRadianOperator(string inputVal)
-        {
-            bool isRadian = inputVal.IsRadianType();
-            if (isRadian)
+            string trimmedInput = string.Empty;
+            if (radians.Contains("rad"))
             {
-                return (180.0 / Math.PI) * Convert.ToDouble(inputVal);
+                trimmedInput = radians.Replace("rad", "").Trim();
+            }
+            if (radians.Contains("radian"))
+            {
+                trimmedInput = radians.Replace("radian", "").Trim();
             }
             else
             {
-                return (Math.PI / 180.0) * Convert.ToDouble(inputVal);
+                trimmedInput = radians.Trim();
             }
+            return trimmedInput.ToDegree();
         }
 
         public double GradsToRadians(double grads)
