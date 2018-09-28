@@ -1,5 +1,4 @@
-﻿using Geolocation.Api.Unity.Provider;
-using Geolocation.Api.Unity.Provider.IFactory;
+﻿using AngularUnits.Provider.IAngularUnit;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,7 +8,6 @@ using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using Geolocation.Api.Unity.Models;
 
 namespace Geolocation.Api.Unity.Controllers
 {
@@ -23,42 +21,22 @@ namespace Geolocation.Api.Unity.Controllers
             _operator = provider;
         }
 
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/getradian/10
-        /// </summary>
-        /// <param name="degree"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("getradian/{degree:double}")]
         public IHttpActionResult GetRadian(double degree) => Ok(new { Degree = degree, Radian = _operator.DegreesToRadians(degree) });
 
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/getdegree/10
-        /// </summary>
-        /// <param name="radian"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("getdegree/{radian:double}")]
         public IHttpActionResult GetDegree(double radian) => Ok(new { Radian = radian, Degree = _operator.RadiansToDegrees(radian) });
 
 
-
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/DegreesToCardinal/10
-        /// </summary>
-        /// <param name="degree"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("DegreesToCardinal/{degree:double}")]
         public IHttpActionResult DegreesToCardinal(double degree) => Ok(new { Radian = degree, Cardinal = _operator.DegreesToCardinal(degree) });
 
         
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/gradtoradian/10
-        /// </summary>
-        /// <param name="grad"></param>
-        /// <returns></returns>
-        [HttpGet]        [Route("gradtoradian/{grad:double}")]
+        [HttpGet]
+        [Route("gradtoradian/{grad:double}")]
         public HttpResponseMessage GradToRadian(double grad)
         {
             try
@@ -72,11 +50,6 @@ namespace Geolocation.Api.Unity.Controllers
             }
         }
 
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/radiantograd/10
-        /// </summary>
-        /// <param name="radian"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("radiantograd/{radian:double}")]
         public HttpResponseMessage RadianToGrad(double radian)
@@ -92,11 +65,6 @@ namespace Geolocation.Api.Unity.Controllers
             }
         }
 
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/degreestograd/10
-        /// </summary>
-        /// <param name="degree"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("degreestograd/{degree:double}")]
         public HttpResponseMessage DegreesToGrad(double degree)
@@ -112,11 +80,6 @@ namespace Geolocation.Api.Unity.Controllers
             }
         }
 
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/gradtodegree/10
-        /// </summary>
-        /// <param name="grad"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("gradtodegree/{grad:double}")]
         public HttpResponseMessage GradToDegree(double grad)
@@ -132,11 +95,6 @@ namespace Geolocation.Api.Unity.Controllers
             }
         }
 
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/tosec/10
-        /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("tosec/{x:double}")]
         public HttpResponseMessage ToSec(double x)
@@ -152,11 +110,6 @@ namespace Geolocation.Api.Unity.Controllers
             }
         }
 
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/tocosec/10
-        /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("tocosec/{x:double}")]
         public HttpResponseMessage ToCoSec(double x)
@@ -172,11 +125,6 @@ namespace Geolocation.Api.Unity.Controllers
             }
         }
 
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/tocot/10
-        /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("tocot/{x:double}")]
         public HttpResponseMessage ToCot(double x)
@@ -192,14 +140,6 @@ namespace Geolocation.Api.Unity.Controllers
             }
         }
 
-        /// <summary>
-        /// http://localhost:34006/api/geolocation/getdirection/10/11/43/44
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("getdirection/{x1:int}/{y1:int}/{x2:int}/{y2:int}")]
         public HttpResponseMessage GetDirection(int x1,int y1,int x2, int y2)
