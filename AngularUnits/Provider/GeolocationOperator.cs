@@ -3,20 +3,80 @@ using AngularUnits.Provider.IAngularUnit;
 using System;
 using System.Drawing;
 using AngularUnits.Helper;
+using System.Text.RegularExpressions;
 
 namespace AngularUnits.Provider
 {
     public class GeolocationOperator : IGeolocationOperator
     {
+        public double GenericEvalutor(string inputVal)
+        {
+            string[] genericArray = null;
+            string oprandType = string.Empty;
+            double result = 0;
+            if (inputVal.Contains(",") || inputVal.Contains("+") || inputVal.Contains(" "))
+            {
+                genericArray = inputVal.Split(new char[] { ',', '+', ' ' });
+                foreach (string str in genericArray)
+                {
+                    result += CheckType(str).Equals("radian") ? EvaluateRadian(str) : EvaluateDegree(str);
+                }
+                return result;
+            }
+            else
+            {
+                return CheckType(inputVal).Equals("radian") ? EvaluateRadian(inputVal) : EvaluateDegree(inputVal);
+            }
+        }
+
         public double DegreesToRadians(string degrees)
         {
-            if (degrees.Contains("deg"))
+            string[] degArray = null;
+            double result = 0;
+            if (degrees.Contains(",") || degrees.Contains("+") || degrees.Contains(" "))
             {
-                return degrees.Replace("deg", "").Trim().ToRadian();
+                degArray = degrees.Split(new char[] {',','+',' '});
+                foreach (string str in degArray)
+                {
+                    result += EvaluateDegree(str);
+                }
+                return result;
             }
+            else
+            {
+                return EvaluateDegree(degrees);
+            }
+        }
+
+        public double RadiansToDegrees(string radians)
+        {
+            string trimmedInput = string.Empty;
+            string[] radArray = null;
+            double result = 0;
+            if (radians.Contains(",") || radians.Contains("+") || radians.Contains(" "))
+            {
+                radArray = radians.Split(new char[] { ',', '+', ' ' });
+                foreach (string str in radArray)
+                {
+                    result += EvaluateRadian(str);
+                }
+                return result;
+            }
+            else
+            {
+                return EvaluateRadian(radians);
+            }
+        }
+
+        internal double EvaluateDegree(string degrees)
+        {
             if (degrees.Contains("degree"))
             {
                 return degrees.Replace("degree", "").Trim().ToRadian();
+            }
+            if (degrees.Contains("deg"))
+            {
+                return degrees.Replace("deg", "").Trim().ToRadian();
             }
             else
             {
@@ -24,22 +84,38 @@ namespace AngularUnits.Provider
             }
         }
 
-        public double RadiansToDegrees(string radians)
+        internal double EvaluateRadian(string radians)
         {
             string trimmedInput = string.Empty;
-            if (radians.Contains("rad"))
-            {
-                trimmedInput = radians.Replace("rad", "").Trim();
-            }
             if (radians.Contains("radian"))
             {
                 trimmedInput = radians.Replace("radian", "").Trim();
+            }
+            if (radians.Contains("rad"))
+            {
+                trimmedInput = radians.Replace("rad", "").Trim();
             }
             else
             {
                 trimmedInput = radians.Trim();
             }
             return trimmedInput.ToDegree();
+        }
+
+        internal string CheckType(string typeChk)
+        {
+            if (typeChk.Contains("radian") || typeChk.Contains("rad"))
+            {
+                return "radian";
+            }
+            if (typeChk.Contains("degree") || typeChk.Contains("deg"))
+            {
+                return "degree";
+            }
+            else
+            {
+                return string.Empty;
+            }        
         }
 
         public double GradsToRadians(double grads)

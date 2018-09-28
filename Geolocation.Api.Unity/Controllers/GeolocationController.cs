@@ -22,12 +22,16 @@ namespace Geolocation.Api.Unity.Controllers
         }
 
         [HttpGet]
-        [Route("getradian/{degree:string}")]
-        public IHttpActionResult GetRadian(string degree) => Ok(new { Degree = degree, Radian = _operator.DegreesToRadians(degree) });
+        [Route("genericevaluator/{inputStr}")]
+        public IHttpActionResult GenericEvaluator(string inputStr) => Ok(new { Input = inputStr, Output = _operator.GenericEvalutor(inputStr) });
 
         [HttpGet]
-        [Route("getdegree/{radian:string}")]
-        public IHttpActionResult GetDegree(string radian) => Ok(new { Radian = radian, Degree = _operator.RadiansToDegrees(radian) });
+        [Route("getradian/{degree}")]
+        public IHttpActionResult GetRadian(string degree) => Ok(new { Input = degree, Output = _operator.DegreesToRadians(degree) });
+
+        [HttpGet]
+        [Route("getdegree/{radian}")]
+        public IHttpActionResult GetDegree(string radian) => Ok(new { Input = radian, Output = _operator.RadiansToDegrees(radian) });
 
 
         [HttpGet]
