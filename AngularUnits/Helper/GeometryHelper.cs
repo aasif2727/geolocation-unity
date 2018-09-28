@@ -41,13 +41,13 @@ namespace AngularUnits.Helper
             if (!slashIdx.HasValue && pieIdx.HasValue)
             {
                 string temp = inputVal.Substring(0, pieIdx.Value);
-                return (Math.PI) * Convert.ToDouble(temp);
+                return ((Math.PI) * Convert.ToDouble(temp))/180;
             }
             if (!slashIdx.HasValue && pieIdx.HasValue)
             {
                 string _prefix = inputVal.Substring(0, pieIdx.Value);
                 string _suffix = inputVal.Substring(pieIdx.Value, inputVal.Length);
-                return ((Math.PI) * Convert.ToDouble(_prefix))/Convert.ToDouble(_suffix);
+                return (((Math.PI) * Convert.ToDouble(_prefix))/Convert.ToDouble(_suffix))/180;
             }
             if (!slashIdx.HasValue && !pieIdx.HasValue)
             {
