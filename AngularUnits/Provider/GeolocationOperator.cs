@@ -2,19 +2,33 @@
 using AngularUnits.Provider.IAngularUnit;
 using System;
 using System.Drawing;
+using AngularUnits.Helper;
 
 namespace AngularUnits.Provider
 {
     public class GeolocationOperator : IGeolocationOperator
     {
-        public double DegreesToRadians(double degrees)
+        public double DegreesToRadians(string degrees)
         {
-            return (Math.PI / 180.0) * degrees;
+            return (Math.PI / 180.0) * Convert.ToDouble(degrees);
         }
 
-        public double RadiansToDegrees(double radians)
+        public double RadiansToDegrees(string radians)
         {
-            return (180.0 / Math.PI) * radians;
+            return (180.0 / Math.PI) * Convert.ToDouble(radians);
+        }
+
+        public double DegreeRadianOperator(string inputVal)
+        {
+            bool isRadian = inputVal.IsRadianType();
+            if (isRadian)
+            {
+                return (180.0 / Math.PI) * Convert.ToDouble(inputVal);
+            }
+            else
+            {
+                return (Math.PI / 180.0) * Convert.ToDouble(inputVal);
+            }
         }
 
         public double GradsToRadians(double grads)
@@ -115,5 +129,6 @@ namespace AngularUnits.Provider
         {
             return Math.Tan(x);
         }
+
     }
 }

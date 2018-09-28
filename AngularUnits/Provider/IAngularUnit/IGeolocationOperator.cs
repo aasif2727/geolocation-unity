@@ -10,8 +10,10 @@ namespace AngularUnits.Provider.IAngularUnit
 {
     public interface IGeolocationOperator
     {
-        double DegreesToRadians(double degrees);
-        double RadiansToDegrees(double radians);
+        double DegreesToRadians(string degrees);
+        double RadiansToDegrees(string radians);
+        double DegreeRadianOperator(string inputVal);
+
         double GradsToRadians(double grads);
         double RadiansToGrads(double radians);
         double DegreesToGrads(double degrees);

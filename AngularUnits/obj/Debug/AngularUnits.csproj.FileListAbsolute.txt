@@ -1,0 +1,5 @@
+C:\geolocation-unity\AngularUnits\bin\Debug\AngularUnits.dll
+C:\geolocation-unity\AngularUnits\bin\Debug\AngularUnits.pdb
+C:\geolocation-unity\AngularUnits\obj\Debug\AngularUnits.csproj.CoreCompileInputs.cache
+C:\geolocation-unity\AngularUnits\obj\Debug\AngularUnits.dll
+C:\geolocation-unity\AngularUnits\obj\Debug\AngularUnits.pdb
