@@ -1,2 +1,0 @@
-C:\geolocation-unity\Geolocation.Api.Unity\obj\Debug\Geolocation.Api.csprojAssemblyReference.cache
-C:\geolocation-unity\Geolocation.Api.Unity\obj\Debug\Geolocation.Api.csproj.CoreCompileInputs.cache

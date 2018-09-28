@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\GeometryHelper.cs" />
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="Models\AngleFormat.cs" />
     <Compile Include="Models\ConvertAngle.cs" />
